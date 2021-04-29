@@ -9,7 +9,9 @@ import os
 import shutil
 import csv
 
-with open('file path to sstubs.json', 'r') as f:
+sstubsJsonFilePath = '/usr/sstubs.json'
+
+with open(sstubsJsonFilePath, 'r') as f:
     sstubs = json.load(f)
 
 for sstub in sstubs[5:6]:

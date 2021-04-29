@@ -10,7 +10,7 @@ import datetime
 import  dateutil
 
 
-#formerCommitMatchesFN = INSERT FILE PATH
+formerCommitMatchesFN = "/usr/JmeterFormerCommitsMap_NEW.json" #file path
 
 with open(formerCommitMatchesFN, 'r', encoding = 'utf-8') as f:
     formerCommitMatches = json.load(f)
@@ -73,14 +73,14 @@ def get_fix_date(sstub):
         output = 'NaN'
     return str(output).strip("b'").strip("\\n'")
 
-def write_to_json(writeThis, filename = FILE PATH TO FINAL_SSTUBS.json, mode = 'a'):
+def write_to_json(writeThis, filename = '/usr/FINAL_SSTUBS.json', mode = 'a'):
     with open(filename, mode, encoding='utf-8') as FINAL_SSTUBS:
         json.dump(writeThis, FINAL_SSTUBS, indent=4)
         if mode == 'a':
             FINAL_SSTUBS.write(",\n")
         FINAL_SSTUBS.close()
 
-def write_to_csv(writeThis, filename = FILE PATH TO problematic_commits.csv, mode = 'a'):
+def write_to_csv(writeThis, filename = '/usr/problematic_commits.csv', mode = 'a'):
     with open(filename, mode) as pc:
         pc.write(str(writeThis))
         pc.write('\n')
@@ -127,10 +127,8 @@ def get_git_source(sstub, curr_buggycode):
 
     curr_buggycode_stripped = curr_buggycode[0].replace(r'\"', '"')
 
-
     git_source = "git log --source --date=iso --pretty=';%H'  --shortstat -S " + '"'+curr_buggycode_stripped + '" -- '  + sstub['bugFilePath'] + " > gitsource_" + sstub['fixCommitSHA1']+".txt"
-    # git_source = "git log --source --date=iso --pretty=',%H;'  --shortstat -S '" + curr_buggycode[0] + "' -- "  + sstub['bugFilePath'] .strip('"').strip("'")
-    # print("\n\n GIT SOURCE!!!!!", git_source)
+
     if "'"  in curr_buggycode_stripped:
         if '"' not in curr_buggycode_stripped:
             os.system("git config diff.renameLimit 999999")
@@ -173,7 +171,7 @@ def delete_and_clone(projectFolderName, projectName, gitsRedownloaded , gitsTrie
         return False
 
     dir = "projects"
-    parentDir = FILE PATH TO PARENT DIR
+    parentDir = "/usr/SSTUBS_PAPER"
     mode = 0o66
     path = os.path.join(parentDir,dir) #path to the projects dir
     filePath = Path(path)
@@ -389,16 +387,16 @@ def generateFinalCSVs(filePathIn, filePathOut):
                                 'initWhereAbouts':  entry['initWhereAbouts'].replace(',','*')})
 
 def get_final_files(sstubs):
-    FP = FILE PATH FINAL_SSTUBS_DEBUGGED_FORCSV JSON FILE
-    FP1 = FILE PATH FINAL_SSTUBS_NOPOSSIBLECOMMITS JSON # NO POSSIBLE COMMITS
-    FP2 = FILE PATH FINAL_SSTUBS_NOFINALCOMMIT JSON # NO FINAL COMMIT
-    FP3 = FILE PATH FINAL_SSTUBS_ALLINFO JSON # PERFECT
+    FP = '/usr/FINAL_SSTUBS_DEBUGGED_FORCSV.json'
+    FP1 = '/usr/FINAL_SSTUBS_NOPOSSIBLECOMMITS.json' # NO POSSIBLE COMMITS
+    FP2 = '/usr/FINAL_SSTUBS_NOFINALCOMMIT.json' # NO FINAL COMMIT
+    FP3 = 'usr/FINAL_SSTUBS_ALLINFO.json' # PERFECT
 
     noPossibleCommits = []
     noFinalCommit = []
     perfect = []
     # results of sstubs logic
-    filePath1 = FILE PATH TO SSTUBS #FILE PATH TO SSTUBS
+    filePath1 = '/us' #FILE PATH TO SSTUBS
     with open(filePath1,'r', encoding="utf-8") as f:
         data = f.readlines()
         data[0] = '[\n{\n'
@@ -429,16 +427,16 @@ def get_final_files(sstubs):
         json.dump(perfect, F, indent=4)
         F.close()
 
-    generateFinalCSVs(FP1, INSERT FILE PATH to FINAL_SSTUBS_NOPOSSIBLECOMMITS) #INSERT FILE PATH to FINAL_SSTUBS_NOPOSSIBLECOMMITS
-    generateFinalCSVs(FP2, INSERT FILE PATH to FINAL_SSTUBS_NOFINALCOMMIT) #INSERT FILE PATH to FINAL_SSTUBS_NOFINALCOMMIT
-    generateFinalCSVs(FP3, INSERT FILE PATH to FINAL_SSTUBS_ALLINFO) #INSERT FILE PATH to FINAL_SSTUBS_ALLINFO
+    generateFinalCSVs(FP1, '/usr/FINAL_SSTUBS_NOPOSSIBLECOMMITS.csv') #INSERT FILE PATH to FINAL_SSTUBS_NOPOSSIBLECOMMITS
+    generateFinalCSVs(FP2, '/usr/FINAL_SSTUBS_NOFINALCOMMIT.csv') #INSERT FILE PATH to FINAL_SSTUBS_NOFINALCOMMIT
+    generateFinalCSVs(FP3, '/usr/FINAL_SSTUBS_ALLINFO.csv') #INSERT FILE PATH to FINAL_SSTUBS_ALLINFO
 
 def main_logic(projectNames, sstubs, gitsRedownloaded, gitsTriedFailedRedownload):
     prob_gits =['AndroidBootstrap.android-bootstrap', 'b3log.solo', 'b3log.symphony']
     problematic_commits = []
 
     dir = "projects"
-    parentDir = FILE PATH TO PARENT DIR
+    parentDir = "/usr/SSTUBS_PAPER"
     mode = 0o66
     path = os.path.join(parentDir,dir) #path to the projects dir
     filePath = Path(path)
@@ -544,18 +542,17 @@ def main_logic(projectNames, sstubs, gitsRedownloaded, gitsTriedFailedRedownload
 
 
 
-# MAIN PART
-project_names_dict_fn = PATH TO project_names_dict.json
-sstubsLarge_fn = PATH TO sstubsLarge.json
+if __name__ = "__main__":
+    project_names_dict_fn = "/usr/project_names_dict.json"
+    sstubsLarge_fn = "/usr/sstubsLarge.json"
+    # get the project names into dict
+    project_names, sstubsLarge = getProjectNames(sstubsLarge_fn, project_names_dict_fn)
 
-# get the project names into dict
-project_names, sstubsLarge = getProjectNames(sstubsLarge_fn, project_names_dict_fn)
+    gitsRedownloaded = []
+    gitsTriedFailedRedownload = []
 
-gitsRedownloaded = []
-gitsTriedFailedRedownload = []
+    main_logic(project_names, sstubsLarge, gitsRedownloaded, gitsTriedFailedRedownload)
+    print('gitsRedownloaded: ' ,gitsRedownloaded)
+    print('gitsTriedFailedRedownload: ' ,gitsTriedFailedRedownload)
 
-main_logic(project_names, sstubsLarge, gitsRedownloaded, gitsTriedFailedRedownload)
-print('gitsRedownloaded: ' ,gitsRedownloaded)
-print('gitsTriedFailedRedownload: ' ,gitsTriedFailedRedownload)
-
-get_final_files(sstubsLarge)
+    get_final_files(sstubsLarge)
