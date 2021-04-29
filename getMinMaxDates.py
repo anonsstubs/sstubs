@@ -385,6 +385,7 @@ if __name__ == '__main__':
         # author_stats[project] = git_author_stats
         # committer_stats[project] = git_committers_stats
 
+#######
 
         #insert your file path to basicInfoPerProject_saveProg csv file
         write_to_csv(stats, '/home/usr/basicInfoPerProject_saveProg.csv', mode = 'a')
