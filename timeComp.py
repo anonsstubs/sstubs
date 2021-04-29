@@ -157,7 +157,7 @@ def commitAuthorAndHours(resultsFilePath):  #CODE AUTHOR
 
 def commitAndHours(resultsFile): #COMMIT
     #buggy commits vs hours -- initCommit
-    hoursBuggyFile = open('hoursVSbuggyCommit.csv'mode='w')
+    hoursBuggyFile = open('hoursVSbuggyCommit.csv',mode='w')
     buggy_writer = csv.writer(hoursBuggyFile,delimiter=',')
     buggy_writer.writerow(['iterCount', 'bugHour'])
 

@@ -542,7 +542,7 @@ def main_logic(projectNames, sstubs, gitsRedownloaded, gitsTriedFailedRedownload
 
 
 
-if __name__ = "__main__":
+if __name__ == "__main__":
     project_names_dict_fn = "/usr/project_names_dict.json"
     sstubsLarge_fn = "/usr/sstubsLarge.json"
     # get the project names into dict

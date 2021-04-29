@@ -60,7 +60,7 @@ def get_auth_count(beforeDate, afterDate,projectFolder):
 
 
     git_committers = 'git shortlog -sne --since="'+afterDate+'" --until='+'"'+beforeDate+'"' + '> gitcommitters.txt'
-    path = FILEPATHTO_Projects/'+projectFolder+'/gitcommitters.txt'
+    path = '/usr/SSTUBS_PAPER/projects'+projectFolder+'/gitcommitters.txt'
     print(git_committers)
     try:
         output2 = subprocess.check_output(git_committers, shell=True)
@@ -210,7 +210,7 @@ def get_auth_stats(beforeDate, afterDate):
 def count_authors(directory, beforeDate, afterDate):
     for root, subdirectories, files in os.walk(directory):
         for subdirectory in subdirectories:
-            folder_path = os.path.join(root, subdirectory))
+            folder_path = os.path.join(root, subdirectory)
             auth_count = count_authors(directory, project_path, beforeDate, afterDate)
 
 
