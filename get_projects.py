@@ -13,10 +13,10 @@ import platform
 
 def createProjectCSV():
     # load json file
-    with open('FILE PATH TO SSTUBS JSON',encoding="utf-8") as f:
+    with open('/usr/sstubs.json',encoding="utf-8") as f:
       data = json.load(f)
 
-    with open("FILE PATH TO PROJECTS CSV", mode='w',encoding='utf-8') as outfile:
+    with open("/usr/projects.csv", mode='w',encoding='utf-8') as outfile:
         fieldnames = ['bugType', 'fixCommit','parentCommit', 'projectName','bugLineNum','bugFilePath','sourceBeforeFix']
         writer = csv.DictWriter(outfile, fieldnames=fieldnames)
         writer.writeheader()
@@ -27,7 +27,7 @@ def createProjectCSV():
 
 def cloneProjects(filePath):
     projects = set()
-    with open("file path to projects csv","r",encoding="utf-8") as csv_file:
+    with open("/usr/projects.csv","r",encoding="utf-8") as csv_file:
         csv_reader = csv.DictReader(csv_file)
         line_count = 0
         for row in csv_reader:
@@ -88,6 +88,6 @@ def cloneProjects(filePath):
         dupFound = False
 
 #insert your file path here
-filePath = r"C:\Users\\" #enter file path here
+filePath = '/home/usr' #enter file path here
 createProjectCSV()
 cloneProjects(filePath)

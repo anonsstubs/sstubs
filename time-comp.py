@@ -1,3 +1,8 @@
+'''
+Fix some of the files path in the last two functions
+'''
+
+
 import csv
 import datetime
 from datetime import timedelta,time
@@ -22,14 +27,14 @@ def parseHour(dateString):
 
 # ==============================================================================
 
-def commitAuthorAndDays(dayVSBuggyCommitAuthorFilePath,dayVSFixCommitAuthorFilePath,resultsCSVFilePath):
+def commitAuthorAndDays(resultsCSVFilePath):
     # buggy commits vs days (day of the week) -- initCodeAuthor Date
-    daysBuggyAuthorCommitFile = open(dayVSBuggyCommitAuthorFilePath,mode='w')
+    daysBuggyAuthorCommitFile = open('dayVSBuggyCommitAuthor.csv',mode='w')
     buggyDays_writer = csv.writer(daysBuggyAuthorCommitFile,delimiter=',')
     buggyDays_writer.writerow(['iterCount', 'bugAuthorDay'])
 
     # fix commits vs days (day of the week) -- fixCodeAuthor Date
-    daysFixAuthorCommitFile = open(dayVSFixCommitAuthorFilePath,mode='w')
+    daysFixAuthorCommitFile = open('dayVSFixCommitAuthor.csv',mode='w')
     fixDays_writer = csv.writer(daysFixAuthorCommitFile,delimiter=',')
     fixDays_writer.writerow(['iterCount', 'fixAuthorDay'])
 
@@ -67,14 +72,14 @@ def commitAuthorAndDays(dayVSBuggyCommitAuthorFilePath,dayVSFixCommitAuthorFileP
     results.close()
 
 
-def commitAndDays(daysVSbuggyCommitFilePath,daysVfixCommitFilePath,resultsFilePath):
+def commitAndDays(resultsFilePath):
     # buggy commits vs days (day of the week) -- initCommitDate
-    daysBuggyFile = open(daysVSbuggyCommitFilePath,mode='w')
+    daysBuggyFile = open('daysVSbuggyCommit.csv',mode='w')
     buggyDays_writer = csv.writer(daysBuggyFile,delimiter=',')
     buggyDays_writer.writerow(['iterCount', 'bugDay'])
 
     # fix commits vs days (day of the week) -- fixCommit Date
-    daysFixFile = open(daysVfixCommitFilePath,mode='w')
+    daysFixFile = open('daysVfixCommit.csv',mode='w')
     fixDays_writer = csv.writer(daysFixFile,delimiter=',')
     fixDays_writer.writerow(['iterCount', 'fixDay'])
 
@@ -116,14 +121,14 @@ def commitAndDays(daysVSbuggyCommitFilePath,daysVfixCommitFilePath,resultsFilePa
 
 # ==============================================================================
 
-def commitAuthorAndHours(hoursVSbuggyAuthorCommitFilePath,hoursVSfixAuthorDateFilePath,resultsFilePath):  #CODE AUTHOR
+def commitAuthorAndHours(resultsFilePath):  #CODE AUTHOR
     #buggy commits vs hours -- initCodeAuthor Date
-    hoursBuggyAuthorFile = open(hoursVSbuggyAuthorCommitFilePath,mode='w')
+    hoursBuggyAuthorFile = open('hoursVSbuggyAuthorCommit.csv',mode='w')
     buggyAuthor_writer = csv.writer(hoursBuggyAuthorFile,delimiter=',')
     buggyAuthor_writer.writerow(['iterCount', 'bugAuthorDate'])
 
     #fix commits vs hours -- fixCodeAuthor Date
-    hoursFixAuthorFile = open(hoursVSfixAuthorDateFilePath,mode='w')
+    hoursFixAuthorFile = open('hoursVSfixAuthorDate.csv',mode='w')
     fixAuthor_writer = csv.writer(hoursFixAuthorFile,delimiter=',')
     fixAuthor_writer.writerow(['iterCount', 'fixAuthorDate'])
 
@@ -150,14 +155,14 @@ def commitAuthorAndHours(hoursVSbuggyAuthorCommitFilePath,hoursVSfixAuthorDateFi
     hoursFixAuthorFile.close()
     results.close()
 
-def commitAndHours(hoursVSbuggyCommitFilePath,hoursVSfixCommitFilePath,resultsFile): #COMMIT
+def commitAndHours(resultsFile): #COMMIT
     #buggy commits vs hours -- initCommit
-    hoursBuggyFile = open(hoursVSbuggyCommitFilePath,mode='w')
+    hoursBuggyFile = open('hoursVSbuggyCommit.csv'mode='w')
     buggy_writer = csv.writer(hoursBuggyFile,delimiter=',')
     buggy_writer.writerow(['iterCount', 'bugHour'])
 
     #fix commits vs hours -- fixCommit
-    hoursFixFile = open(hoursVSfixCommitFilePath,mode='w')
+    hoursFixFile = open('hoursVSfixCommit.csv',mode='w')
     fix_writer = csv.writer(hoursFixFile,delimiter=',')
     fix_writer.writerow(['iterCount', 'fixHour'])
 
@@ -187,7 +192,7 @@ def commitAndHours(hoursVSbuggyCommitFilePath,hoursVSfixCommitFilePath,resultsFi
 
 # ==============================================================================
 #count the instances in the graphs
-def countInstances(daysVSbuggyCommitFilePath,daysVSbuggyCommitAuthorFilePath,daysVSfixCommitFilePath,daysVSfixAuthorCommitFilePath,hoursVSfixCommitFilePath):
+def countInstances(daysVSbuggyCommitFilePath,daysVSbuggyCommitAuthorFilePath,daysVSfixCommitFilePath,daysVSfixAuthorCommitFilePath,hoursVSfixCommitFilePath,hoursVSfixAuthorDateFilePath,hoursVSbuggyAuthorCommitFilePath,hoursVSbuggyCommitFilePath):
     numToDays = {'0':'Monday','1':'Tuesday','2':'Wednesday','3':'Thursday','4':'Friday','5':'Saturday','6':'Sunday'}
     buggyDays = collections.Counter()
     with open(daysVSbuggyCommitFilePath) as input_file:
@@ -264,7 +269,7 @@ def countInstances(daysVSbuggyCommitFilePath,daysVSbuggyCommitAuthorFilePath,day
     input_file.close()
 
     fixAuthorCommitHours = collections.Counter()
-    with open(file path to hoursVSfixAuthorDate) as input_file:
+    with open(hoursVSfixAuthorDateFilePath) as input_file:
         count = 0
         for row in csv.reader(input_file, delimiter=','):
             if count == 0:
@@ -280,7 +285,7 @@ def countInstances(daysVSbuggyCommitFilePath,daysVSbuggyCommitAuthorFilePath,day
 
 
     buggyAuthorCommitHours = collections.Counter()
-    with open(file path to hoursVSbuggyAuthorCommitCSV) as input_file:
+    with open(hoursVSbuggyAuthorCommitFilePath) as input_file:
         count = 0
         for row in csv.reader(input_file, delimiter=','):
             if count == 0:
@@ -295,7 +300,7 @@ def countInstances(daysVSbuggyCommitFilePath,daysVSbuggyCommitAuthorFilePath,day
     input_file.close()
 
     buggyCommitHours = collections.Counter()
-    with open(FILE PATH TO hoursVSbuggyCommit) as input_file:
+    with open(hoursVSbuggyCommitFilePath) as input_file:
         count = 0
         for row in csv.reader(input_file, delimiter=','):
             if count == 0:
@@ -309,15 +314,15 @@ def countInstances(daysVSbuggyCommitFilePath,daysVSbuggyCommitAuthorFilePath,day
 
     input_file.close()
 
-def originalFileStats(jsonFile):
+def originalFileStats(jsonFilePath):
     csv.field_size_limit(sys.maxsize)
     setUniqueProjectNames = set()
-    dfSstubs = pd.read_csv(PATH TO SSTUBS CSV)
+    dfSstubs = pd.read_csv('/usr/sstubs.csv')  #!!!!!!
     dfSstubs.drop('bugType', inplace=True, axis=1)
     dfSstubs.drop_duplicates(keep = False, inplace = True)
-    dfSstubs.to_csv(pathToCreatedFormattedCSV)
+    dfSstubs.to_csv('/usr/newSstubs.csv')  #!!!!
 
-    with open(file path to formatted json) as orginal:
+    with open(formattedJsonPath) as orginal:
         csvReader = csv.DictReader(orginal, delimiter=',')
         count = 0
         for row in csvReader:
@@ -325,7 +330,8 @@ def originalFileStats(jsonFile):
             count+=1
         print(f"uniqueCommits ORIGINAL FILE: {count}")
 
-    with open(file path to sstubs) as jsonF:
+
+    with open(sstubsJsonPath) as jsonF:
         jsonF = json.load(jsonF)
         projectsSet = set()
         for d in jsonF:
@@ -334,7 +340,7 @@ def originalFileStats(jsonFile):
         print(f"total commits ORIGINAL FILE: {len(jsonF)}")
 
 
-    with open(file path to sstubs csv) as orginalFile:
+    with open('/usr/sstubs.csv') as orginalFile:
         csvLargeReader = csv.DictReader(orginalFile, delimiter=',')
         bugTypeDict = {}
         count = 0
@@ -362,7 +368,7 @@ def resultsFileStats(resultsFile):
             count+=1
 
     #unfiltered results file
-    with open(FILE PATH TO FILTERED RESULTS) as unfilteredFile:
+    with open('/usr/filtered_results.csv') as unfilteredFile:
         maxComp = 0
         minComp = float(math.inf)
         csvReader = csv.DictReader(unfilteredFile,delimiter=',')
@@ -389,18 +395,27 @@ def resultsFileStats(resultsFile):
 
 #summary stats
 def summaryStats():
-    resultsFileStats(FILE PATH TO FILTERED RESULTS)
+    resultsFileStats('/usr/filtered_results.csv')
 
 
 if __name__ == "__main__":
-    print("=================COMMIT AND HOURS=================")
-    commitAndHours()
-    print("=================AUTHOR CODE COMMIT AND HOURS====================")
-    commitAuthorAndHours()
-    print("=================COMMIT AND DAYS=================")
-    commitAndDays()
-    print("=================AUTHOR CODE COMMIT AND DAYS=================")
-    commitAuthorAndDays()
-    countInstances()
+    #insert path to results final.csv
+    resultsCSVFilePath = "/usr/resultsFile.csv"
+    commitAndHours(resultsCSVFilePath)
+    commitAuthorAndHours(resultsCSVFilePath)
+    commitAndDays(resultsCSVFilePath)
+    commitAuthorAndDays(resultsCSVFilePath)
+
+    #insert file paths
+    daysVSbuggyCommitFilePath = "/usr/daysVSbuggyCommit.csv"
+    daysVSbuggyCommitAuthorFilePath = "/usr/daysVSbuggyCommitAuthor.csv"
+    daysVSfixCommitFilePath = "/usr/daysVSfixCommit.csv"
+    daysVSfixAuthorCommitFilePath = "/usr/daysVSfixAuthorCommit.csv"
+    hoursVSfixCommitFilePath = "/usr/hoursVSfixCommit.csv"
+    hoursVSfixAuthorDateFilePath = "/usr/hoursVSfixAuthorDate.csv"
+    hoursVSbuggyAuthorCommitFilePath = "/usr/hoursVSbuggyAuthorCommit.csv"
+    hoursVSbuggyCommitFilePath = "/usr/hoursVSbuggyCommit.csv"
+    countInstances(daysVSbuggyCommitFilePath,daysVSbuggyCommitAuthorFilePath,daysVSfixCommitFilePath,daysVSfixAuthorCommitFilePath,hoursVSfixCommitFilePath,hoursVSfixAuthorDateFilePath,hoursVSbuggyAuthorCommitFilePath,hoursVSbuggyCommitFilePath)
+
     # grab summary stats
     summaryStats()
